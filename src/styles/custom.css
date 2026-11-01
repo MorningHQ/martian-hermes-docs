@@ -89,6 +89,15 @@ starlight-toc a { font-size: 12px; line-height: 1.65; }
 starlight-toc a[aria-current='true'] { color: var(--sl-color-white); font-weight: 600; }
 .pagination-links a { border-radius: 8px; border-color: var(--sl-color-hairline); box-shadow: none; padding: 20px; }
 .pagination-links .link-title { font-size: 15px; font-weight: 550; }
+.doc-visual { margin: 1.75rem 0 2rem; max-width: 100%; }
+.doc-visual img { display: block; width: 100%; height: auto; border: 1px solid var(--sl-color-hairline); border-radius: 8px; }
+.doc-visual a { display: block; border-radius: 8px; cursor: zoom-in; }
+.doc-visual figcaption { margin-top: 10px; color: var(--sl-color-gray-3); font-size: 12px; line-height: 1.6; }
+.doc-visual.diagram { overflow-x: auto; padding-bottom: 6px; }
+.doc-visual.diagram img { background: #fafafa; }
+.sl-markdown-content details { margin-block: 1.5rem; border: 1px solid var(--sl-color-hairline); border-radius: 8px; padding: 16px 18px; background: var(--sl-color-bg-nav); }
+.sl-markdown-content details summary { cursor: pointer; color: var(--sl-color-white); font-size: 14px; font-weight: 500; }
+.sl-markdown-content details[open] summary { margin-bottom: 16px; }
 @media (min-width: 50rem) {
   .content-panel { padding-block: 2.75rem; }
   .content-panel + .content-panel { padding-top: 2.25rem; }
@@ -105,6 +114,7 @@ starlight-toc a[aria-current='true'] { color: var(--sl-color-white); font-weight
   .doc-section-label { margin-bottom: 14px; }
   .sl-markdown-content .level-h2 { margin-top: 2.5rem; }
   .sidebar-content { padding-top: 1rem; }
+  .doc-visual.diagram img { min-width: 720px; }
 }
 @media (max-width: 360px) {
   .martian-brand { gap: 8px; }

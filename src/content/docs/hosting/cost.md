@@ -1,27 +1,26 @@
 ---
 title: "Capacity and cost"
-description: "Read the dated infrastructure estimate and single-host resource limits."
+description: "Read the dated estimate for the small EC2 controller."
 ---
 
-Region: US East (N. Virginia), `us-east-1`. Prices checked 2026-10-28. This is native EC2, replacing the earlier Lightsail example. Linux on-demand `t3a.medium` was queried through AWS Pricing at **$0.0376/hour**, or **$27.45 for 730 hours**. CPU credits are configured `standard` to avoid unlimited-credit surcharges; sustained load can throttle after credits are exhausted.
+**About $45.52/month for infrastructure**, using the 28 October 2026 estimate for `us-east-1`.
 
-| Item | Monthly estimate / allowance |
+| Item | Estimate |
 | --- | ---: |
-| EC2 t3a.medium, 2 vCPU / 4 GiB, 730 hours | $27.45 |
-| gp3: 24 GiB OS + 80 GiB retained data at $0.08/GiB-month | $8.32 |
-| One public IPv4 at $0.005/hour | $3.65 |
-| EBS recovery points allowance, dependent on changed data | $5.00 |
-| S3 application backups and small request volume allowance | $1.00 |
-| One standard CloudWatch alarm | $0.10 |
-| Estimated infrastructure subtotal | **$45.52** |
+| `t3a.medium` · 730 hours | $27.45 |
+| 24 + 80 GiB gp3 disks | $8.32 |
+| Public IPv4 | $3.65 |
+| EBS recovery points allowance | $5.00 |
+| S3 archives allowance | $1.00 |
+| CloudWatch alarm | $0.10 |
 
-Allowances are not caps. Model/API charges, tax, internet transfer over the applicable account allowance, additional monitoring, backup growth, AWS Backup restore tests, temporary recovery volumes and CDK asset/bootstrap storage are separate or variable. The single-host architecture includes no NAT gateway, load balancer, managed database or Kubernetes cluster. Track actual tagged costs and disk growth; the ~$50 budget cannot guarantee arbitrary storage churn or continuous distributed workers.
-
-Sources: [EC2 on-demand](https://aws.amazon.com/ec2/pricing/on-demand/), [EBS pricing](https://aws.amazon.com/ebs/pricing/), [public IPv4](https://aws.amazon.com/vpc/pricing/), [S3 pricing](https://aws.amazon.com/s3/pricing/), [AWS Backup pricing](https://aws.amazon.com/backup/pricing/).
-
+Model/API usage, tax, transfer, backup growth and restore tests are extra. Allowances are not spending caps. Check current [AWS prices](https://aws.amazon.com/ec2/pricing/on-demand/) and tagged costs before budgeting.
 
 ## Capacity rules
 
-Keep one browser context and one heavy evaluation job active at a time. Heavy wrappers share an advisory evaluation lock and fail promptly if another job holds it. This protects a small host from accidental overload; it does not enforce tenant isolation.
+- Run **one browser context and one heavy evaluation** at a time.
+- Use remote models; the 4 GiB host is not sized for local large-model inference.
+- Heavy wrappers share an advisory lock and reject overlapping jobs.
+- Standard CPU credits avoid unlimited-credit surcharges; sustained load can throttle.
 
-The estimates above were checked on the stated date, not refreshed by this documentation build. Consult current AWS prices and tagged actual costs before changing capacity or committing to a monthly budget.
+This budget covers one controller, not a continuously running distributed swarm.

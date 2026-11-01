@@ -1,15 +1,20 @@
 ---
 title: "Martian skills"
-description: "Use pinned skill instructions while checking their actual runtime prerequisites."
+description: "Load a skill, inspect its prerequisites and update the content pin."
 ---
 
-The template installs **all 40 top-level skills** from [MorningHQ/martian-skills](https://github.com/MorningHQ/martian-skills), with all 207 tracked files inside their directories. This deliberately includes host workflow skills, beyond the 24-entry `runtime-catalog.json` used by the separate Aegra campaign runtime. It does not change that runtime catalog or its permissions.
+The deployment installs **40 skills and 207 supporting files** from `MorningHQ/martian-skills`.
 
-`config/martian-skills.json` pins source commit `8b912fd85197714f481a14c6f7a9d09b7ab44663`, the deterministic archive checksum, skill IDs and every file checksum. Canonical editable content stays in martian-skills. The template tracks the content lock and packaging code, not a second editable content tree.
+## Use a skill
 
-## Installed skill IDs
+```text
+List the Martian skills for prompt injection, then load the most relevant one.
+```
 
-These 40 IDs come from the approved content lock. Load one with the native `skill_view` interface and check its prerequisites before execution.
+Hermes discovers them under `skills/martian/` and reads them with `skill_view`. Instructions may need additional dependencies or shared references; loading a skill does not prove that its workflow runs.
+
+<details>
+<summary>All 40 installed skill IDs</summary>
 
 - `agent-permission-and-approval-review`
 - `agent-risk-taxonomy`
@@ -52,24 +57,22 @@ These 40 IDs come from the approved content lock. Load one with the native `skil
 - `verify-fix`
 - `vulnerability-writeup`
 
-## Build and install
+</details>
 
-`npm run check`, `npm run synth`, `npm run diff` and `npm run deploy` first package the approved Git objects as `assets/martian-skills.tar.gz`. By default the packager uses the sibling martian-skills checkout; if absent, it fetches the exact commit into a temporary directory using the operator's existing Git authentication. An existing checkout must contain that commit; fetch it first if necessary. Local edits are never packaged. The archive is ignored by Git but included in the CDK runtime asset. Synthesis refuses a missing or mismatched artifact.
+## Install or verify
 
-The bootstrap installs the verified files as ordinary files under `/srv/hermes/home/skills/martian/`, retaining supporting paths and executable modes. Hermes discovers the nested category natively; existing bundled and user-created skills remain outside this managed namespace. No symlinks or GitHub token are installed. Hermes uses progressive discovery and `skill_view`, as described in its [official skills documentation](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills).
-
-For an existing host, transfer the current reviewed runtime asset through SSM, then run:
+After transferring the reviewed runtime asset to EC2:
 
 ```bash
 sudo martian-hermes skills-install --asset-root /opt/martian-hermes
 sudo martian-hermes skills-verify
 ```
 
-Installation validates archive and file hashes before stopping services. It takes a complete off-host pre-change backup, swaps the category, and resumes previously running services. An unchanged installation is a no-op. An existing managed category must match its installed manifest; local edits, unexpected files or missing files stop replacement. Preserve intentional edits in the canonical repository before updating. This command does not modify disabled-skill settings; verification must additionally prove Hermes lists and loads every skill under the actual host configuration.
+Installation backs up before replacement and rejects locally changed managed files. Keep edits in the canonical skills repository.
 
 ## Update the content pin
 
-Review the source change in martian-skills, fetch it on the deployment machine, then explicitly update the lock:
+In the deployment checkout:
 
 ```bash
 python3 scripts/package_skills.py --source ../martian-skills --revision FULL_REVIEWED_COMMIT
@@ -78,10 +81,6 @@ npm run synth
 npm run diff
 ```
 
-Deploy the changed asset/IAM reference, transfer it to the existing host, and invoke `skills-install`. Updating CloudFormation alone does not run the host command. Check native `skills_list(category='martian')` and `skill_view('martian/SKILL_ID')` for every pinned ID. The installed `.martian-release.json` records provenance alongside the content and survives application backup/import; `skills-verify` checks restored bytes.
+Deploy/transfer the asset, run `skills-install`, then verify native discovery and loading. The lock is `config/martian-skills.json`; EC2 receives pinned files without GitHub credentials. Restoring an older backup restores its older catalog.
 
-## Prerequisites and limits
-
-Availability is distinct from executability. This installs skill instructions and existing supporting files; it does not install every optional eval dependency, add external MCP connections, grant target authorization, or supply Codex-specific APIs. Several source-review skills reference shared upstream `../../references/` and `../../scripts/` material absent from martian-skills itself. Its imported triage evals and patch-risk validator also have documented missing shared schemas and upstream layout assumptions. These source-package limitations remain visible; do not report those workflows as qualified end-to-end Hermes operators. See the source [usage guide](https://github.com/MorningHQ/martian-skills/blob/8b912fd85197714f481a14c6f7a9d09b7ab44663/docs/usage.md).
-
-Restoring a backup made before installation intentionally restores the earlier catalog. Reinstall the approved package afterward. Later application backups include the regular skill files and provenance manifest; EBS snapshots also cover the complete data disk.
+[Skills reference](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)

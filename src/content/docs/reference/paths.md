@@ -1,33 +1,28 @@
 ---
 title: "Paths and services"
-description: "Locate configuration, backed-up work products and regenerable tool installations."
+description: "Find settings, work products and maintenance records."
 ---
 
-The deployment sets `HERMES_HOME=/srv/hermes/home`. Upstream examples referring to `~/.hermes` use this configured location on EC2.
+`HERMES_HOME` is `/srv/hermes/home`, replacing `~/.hermes` in upstream examples.
 
-| Path | Purpose |
+| Path | Contents |
 | --- | --- |
-| `/srv/hermes/home/config.yaml` | Model, agent and platform configuration; managed MCP entries |
-| `/srv/hermes/home/.env` | Credentials, allowlists and environment settings; secret |
-| `/srv/hermes/home/auth.json` | Hermes-owned OAuth credentials; secret |
-| `/srv/hermes/home/skills/martian/` | Pinned 40-skill catalog |
-| `/srv/hermes/workspace/` | Backed-up work products |
-| `/srv/hermes/workspace/redteam-evidence/` | Adapter observations, session mappings and test evidence |
-| `/srv/hermes/workspace/reports/` | Suggested final-report location |
-| `/srv/hermes/redteam/current/` | Active standalone tool release; regenerable |
-| `/srv/hermes/redteam-lab/` | Synthetic lab state; covered by EBS snapshots |
-| `/etc/martian-redteam/targets.json` | Operator-managed targets; separate recovery required |
-| `/srv/hermes/receipts/` | Maintenance, installed-content and restore receipts |
-| `/opt/martian-hermes/` | Reviewed deployment runtime asset |
-| `/run/martian-redteam/lab.sock` | Synthetic lab Unix socket |
+| `home/config.yaml` | Model, agent, channels and MCP |
+| `home/.env`, `home/auth.json` | Credentials; private |
+| `home/skills/martian/` | Managed skill catalog |
+| `workspace/reports/` | Final reports |
+| `workspace/redteam-evidence/` | Observations and session mappings |
+| `redteam/current/` | Regenerable tool release |
+| `redteam-lab/` | Synthetic state; snapshot recovery |
+| `receipts/` | Install, maintenance and restore records |
+
+Paths above are relative to **`/srv/hermes/`**. Operator target registration is `/etc/martian-redteam/targets.json`; the runtime asset is `/opt/martian-hermes/`.
 
 ## Services
 
-| Unit | Responsibility |
+| Unit | Purpose |
 | --- | --- |
-| `martian-hermes-gateway` | Existing Hermes gateway and messaging supervisor |
-| `martian-hermes-dashboard` | Dashboard on `127.0.0.1:9119` |
-| `martian-redteam-lab` | Separate synthetic fixture/verifier process |
-| `martian-hermes-backup.timer` | Daily application/workspace backup schedule |
-
-Keep credentials out of chat, screenshots and repositories. Keep reports out of installation/cache directories. A path on EC2 is not automatically a path on the operator's Mac.
+| `martian-hermes-gateway` | Hermes and messaging |
+| `martian-hermes-dashboard` | Dashboard on loopback `9119` |
+| `martian-redteam-lab` | Synthetic fixture/verifier over a Unix socket |
+| `martian-hermes-backup.timer` | Daily archive schedule |

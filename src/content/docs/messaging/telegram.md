@@ -1,13 +1,15 @@
 ---
 title: "Telegram"
-description: "Connect Telegram to the existing Hermes gateway."
+description: "Create a bot and allow your numeric user ID."
 ---
 
-Follow the [common channel procedure](/martian-hermes-docs/messaging/setup/#add-a-channel) to back up, pause, configure and restart the existing service.
+1. Create a bot through [BotFather](https://t.me/BotFather) using `/newbot`.
+2. Follow the [common setup](/martian-hermes-docs/messaging/setup/#add-a-channel).
+3. As `hermes`, run `hermes gateway setup` and select **Telegram**.
+4. Enter the bot token and your **numeric Telegram user ID**.
+5. Check `TELEGRAM_ALLOWED_USERS`, then restart the gateway.
+6. Open the bot, tap **Start** and send the common test message.
 
-1. In Telegram, open the official [BotFather](https://t.me/BotFather), send `/newbot`, and create your bot. Save its token privately.
-2. During the common setup procedure, run `hermes gateway setup` and select **Telegram**. Supply the token and your **numeric Telegram user ID**, not your username or the bot ID.
-3. Confirm `TELEGRAM_ALLOWED_USERS` contains only your intended user IDs. Keep webhook mode unset so this host uses outbound polling.
-4. Finish the common restart steps. Open your bot, tap **Start**, and send a normal test message; `/start` alone need not produce an agent reply.
+Leave webhook mode unset to use outbound polling. Your username and the bot's ID are not your sender ID. `/start` alone may not produce an agent reply.
 
-The default polling route needs no public callback endpoint. [Telegram guide](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/website/docs/user-guide/messaging/telegram.md).
+[Telegram reference](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/website/docs/user-guide/messaging/telegram.md)

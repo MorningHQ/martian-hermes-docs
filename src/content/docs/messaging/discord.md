@@ -1,13 +1,14 @@
 ---
 title: "Discord"
-description: "Connect Discord to the existing Hermes gateway."
+description: "Set up a bot, intent and allowed users."
 ---
 
-Follow the [common channel procedure](/martian-hermes-docs/messaging/setup/#add-a-channel) to back up, pause, configure and restart the existing service.
+1. Create an application/bot in the [Discord Developer Portal](https://discord.com/developers/applications).
+2. Enable **Message Content Intent** and retain the bot token privately.
+3. During the [common setup](/martian-hermes-docs/messaging/setup/#add-a-channel), run `hermes gateway setup` and select **Discord**.
+4. Use the invitation flow and set permitted numeric user IDs in `DISCORD_ALLOWED_USERS`.
+5. Restart and test by DM or by mentioning the bot in a permitted channel.
 
-1. Create an application and bot in the [Discord Developer Portal](https://discord.com/developers/applications). Copy its bot token privately and enable **Message Content Intent**.
-2. During the common procedure, run `hermes gateway setup` and select **Discord**. Use its invitation flow to add the bot to your server and configure the permitted owner/user IDs.
-3. Check `DISCORD_ALLOWED_USERS`. Invite with the permissions needed for messages and files; Administrator access is unnecessary.
-4. Finish the restart/test steps. DM the bot or mention it in a permitted server channel. The default channel behavior expects a mention.
+Grant message/file permissions as needed; Administrator is unnecessary. The default server-channel behavior expects a mention.
 
-Use numeric user IDs to keep the access rule clear. Thread, channel and user conversations can have distinct histories. [Discord guide](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/website/docs/user-guide/messaging/discord.md).
+[Discord reference](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/website/docs/user-guide/messaging/discord.md)

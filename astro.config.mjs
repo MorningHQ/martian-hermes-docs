@@ -43,16 +43,16 @@ export default defineConfig({
         { slug: 'get-started/first-assessment' },
         { slug: 'get-started/goals-and-sessions' },
       ] },
-      { label: 'Hosting', items: [
+      { label: 'Hosting', collapsed: true, items: [
         { slug: 'hosting/architecture' }, { slug: 'hosting/deploy' },
         { slug: 'hosting/models' }, { slug: 'hosting/backups' },
         { slug: 'hosting/upgrades' }, { slug: 'hosting/cost' },
       ] },
-      { label: 'Tools and MCP', items: [
+      { label: 'Tools and MCP', collapsed: true, items: [
         { slug: 'tools/catalog' }, { slug: 'tools/operations' },
         { slug: 'mcp/servers' }, { slug: 'mcp/target-adapters' },
       ] },
-      { label: 'Attack library', items: [
+      { label: 'Attack library', collapsed: true, items: [
         { slug: 'attack-library/recipes' }, { slug: 'attack-library/skills' },
         { slug: 'attack-library/evidence' },
       ] },
@@ -61,7 +61,7 @@ export default defineConfig({
         { slug: 'messaging/imessage' }, { slug: 'messaging/telegram' },
         { slug: 'messaging/discord' }, { slug: 'messaging/slack' },
       ] },
-      { label: 'Operations', items: [
+      { label: 'Operations', collapsed: true, items: [
         { slug: 'operations/verification' }, { slug: 'operations/troubleshooting' },
       ] },
       { label: 'Reference', collapsed: true, items: [

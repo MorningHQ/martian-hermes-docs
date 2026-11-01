@@ -1,32 +1,27 @@
 ---
 title: "Evidence and findings"
-description: "Keep claims, observations and independently supported effects distinct."
+description: "Verify an effect before recording a finding."
 ---
 
-An attack message is an input. A model's agreement is an output. A confirmed effect needs evidence for the stated invariant. Keep these distinct in every report.
+Use `get_trace`, `diff_state` and `check_canary` to inspect the effect. Then call `record_finding` with the category and claim.
 
-## Synthetic validation
+<figure class="doc-visual screenshot">
+<a href="/martian-hermes-docs/media/screenshots/adapter-results.jpg" target="_blank" rel="noopener" aria-label="Open screenshot: Recorded adapter test output shows hardened and vulnerable results, plus rejected unsupported claims"><img src="/martian-hermes-docs/media/screenshots/adapter-results.jpg" alt="Recorded adapter test output shows hardened and vulnerable results, plus rejected unsupported claims" width="1265" height="947" loading="lazy" decoding="async" /></a>
+<figcaption>Recorded EC2 test output viewed afterward, 30 October 2026. Synthetic fixtures only. Click to enlarge.</figcaption>
+</figure>
 
-The separate lab process owns a per-session canary and toy ledger. The adapter provides observations through `get_trace`, `diff_state` and `check_canary`. `record_finding` checks only the lab's supported `canary_disclosure` and `unauthorized_action` outcomes. Supported simulation results are labeled `synthetic-confirmed`; unsupported claims remain rejected or unconfirmed.
+## Read the result
 
-Canary values are not returned at session creation. Supplying an attacker-written claim or `confirmed` field cannot establish success. Reset closes a synthetic session without deleting captured evidence; start a new session for fresh context.
+| Status | Meaning |
+| --- | --- |
+| `synthetic-confirmed` | The lab verified canary disclosure or an unauthorized ledger action |
+| `unconfirmed` | No supporting effect was verified |
+| Error / unsupported | The operation or category could not be checked |
 
-## Real target validation
+The lab owns its canary and ledger in a separate process. An attacker-supplied claim cannot set confirmed status. Real targets need a trusted verifier for the specific effect; their own response is not automatically ground truth.
 
-For a customer target, document who owns the expected state, what each verifier sees and whether the attacker can influence it. A response returned by the same target is not automatically protected ground truth. Browser screenshots show browser-visible behavior; proxy captures show only traffic routed through that proxy. Neither reveals every backend action.
+## Save the report
 
-Use a trusted target-side verifier or another independent observation for the exact claimed effect. Report unavailable evidence and inconclusive results explicitly.
+Store observations in `/srv/hermes/workspace/redteam-evidence/` and reports in `/srv/hermes/workspace/reports/`. Include target/session IDs, recipe, tool versions, relevant observations, status and limitations. Redact secrets before sharing.
 
-## Store evidence where backups cover it
-
-The adapter records session mappings and observations under:
-
-```text
-/srv/hermes/workspace/redteam-evidence/
-```
-
-Put final reports under `/srv/hermes/workspace/reports/`. Configure PyRIT databases, garak report prefixes and other framework artifacts under the workspace too; defaults outside it are not included automatically in application backups.
-
-Each report should include the target and test identity, case ID/revision, tool/runtime versions, session ID, relevant requests and responses, permitted fixture changes, observed state/trace/canary checks, verification status and limitations. Redact credentials and unnecessary customer content before sharing.
-
-No-findings, incomplete coverage, transport failure and a verified safe control are different outcomes. Do not turn an unsupported finding into success because the goal asks for a vulnerability.
+Point framework databases and report paths at the workspace too. Incomplete coverage, transport failure and a safe control are different outcomes.

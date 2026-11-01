@@ -1,19 +1,20 @@
 ---
 title: "Slack"
-description: "Connect Slack to the existing Hermes gateway."
+description: "Install a Socket Mode app and test a message."
 ---
 
-Follow the [common channel procedure](/martian-hermes-docs/messaging/setup/#add-a-channel) to back up, pause, configure and restart the existing service.
+During the [common setup](/martian-hermes-docs/messaging/setup/#add-a-channel), run as `hermes`:
 
-1. During the common procedure, generate a manifest as `hermes`:
+```bash
+hermes slack manifest --agent-view --write
+```
 
-   ```bash
-   hermes slack manifest --agent-view --write
-   ```
+1. Create an app from the manifest at [Slack app management](https://api.slack.com/apps). Review scopes before installing.
+2. Obtain the bot token and a Socket Mode app token with `connections:write`.
+3. Enable App Home's **Messages tab** and message/slash-command permission.
+4. Run `hermes gateway setup`, select **Slack** and enter tokens plus permitted Member IDs.
+5. Check `SLACK_ALLOWED_USERS`, restart and send a DM or invite the bot to a channel.
 
-2. At [Slack app management](https://api.slack.com/apps), create an app from that manifest. Review its scopes, event subscriptions and Socket Mode configuration before installing it to your workspace.
-3. Obtain the **bot token** and a **Socket Mode app-level token** with `connections:write`. In App Home, enable the Messages tab and permission to send messages/slash commands.
-4. Run `hermes gateway setup`, choose **Slack**, and supply both tokens and your permitted Slack Member IDs. Check `SLACK_ALLOWED_USERS`.
-5. Finish the restart/test steps. Invite the app to the selected channel or send it a DM.
+Socket Mode needs no public webhook. If Slack intercepts slash commands, use `/hermes status` or `/hermes goal status`.
 
-Socket Mode avoids a public webhook. If Slack intercepts a slash command or the workspace uses an older command manifest, use `/hermes status` or `/hermes goal status` as the compatible command wrapper. [Slack setup and command handling](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/website/docs/user-guide/messaging/slack.md).
+[Slack reference](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/website/docs/user-guide/messaging/slack.md)

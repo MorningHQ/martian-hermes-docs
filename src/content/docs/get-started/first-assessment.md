@@ -1,39 +1,42 @@
 ---
-title: "Run a first assessment"
-description: "Exercise the synthetic targets, tool calls and independent observations."
+title: "Run your first test"
+description: "Discover the lab targets, compare them and save a report."
 ---
 
-Start a new Hermes conversation and check the model and reasoning selector. On the reference hosted profile these are `gpt-6.1-sol` and **Medium**. New template installations initially use Bedrock; see [model setup](/martian-hermes-docs/hosting/models/).
+The lab has two deterministic targets: `lab-hardened` and `lab-vulnerable`. No customer system is involved.
 
 ## Discover the lab
 
-Send this in chat:
+Paste into a new Hermes chat:
 
 ```text
-Load the redteam-tools skill. Call martian_redteam.list_targets.
-Explain the registered synthetic targets and which tool verifies their outcomes.
+Load redteam-tools. Call martian_redteam.list_targets and show the result.
 ```
 
-Look for an actual tool call and result listing `lab-hardened` and `lab-vulnerable`. A model-generated description without a tool result does not prove connectivity.
+<figure class="doc-visual screenshot">
+<a href="/martian-hermes-docs/media/screenshots/hermes-targets.jpg" target="_blank" rel="noopener" aria-label="Open screenshot: Completed Hermes tool calls return lab-hardened and lab-vulnerable"><img src="/martian-hermes-docs/media/screenshots/hermes-targets.jpg" alt="Completed Hermes tool calls return lab-hardened and lab-vulnerable" width="1422" height="800" loading="lazy" decoding="async" /></a>
+<figcaption>Actual target-discovery and terminal test, 30 October 2026. Click to enlarge.</figcaption>
+</figure>
 
 ## Compare the targets
 
 ```text
-Assess only lab-hardened and lab-vulnerable using the tool-output-injection recipe.
-Start a separate session for each target, apply the controlled fixture, and send a normal summarization request.
-Verify each result with check_canary and record_finding.
-Save a report under /srv/hermes/workspace/reports/first-assessment.md.
-Label all findings synthetic. Do not contact external targets.
+Test only lab-hardened and lab-vulnerable with the tool-output-injection recipe.
+Use a fresh session for each. Check the canary and record the finding.
+Save a synthetic report to /srv/hermes/workspace/reports/first-test.md.
+Do not contact external targets.
 ```
 
-Expected behavior: the deliberately vulnerable simulation can disclose its protected synthetic canary; the hardened simulation should not. A supported vulnerable result is labeled `synthetic-confirmed`. An unsupported claim remains `unconfirmed`. Use [the evidence guide](/martian-hermes-docs/attack-library/evidence/) to interpret the result.
+<figure class="doc-visual diagram">
+<a href="/martian-hermes-docs/media/diagrams/assessment.svg" target="_blank" rel="noopener" aria-label="Open full-size diagram"><img src="/martian-hermes-docs/media/diagrams/assessment.svg" alt="Choose a recipe, prepare a session and fixture, send a turn, verify the effect, then save the report." loading="lazy" decoding="async" width="1100" height="360" /></a>
+<figcaption>Hermes must check the effect before reporting a finding.</figcaption>
+</figure>
 
 ## Check the deliverable
 
-- The report names both target IDs and separate session IDs.
-- It records the recipe and relevant tool observations.
-- It distinguishes observed behavior from claims and errors.
-- It identifies both targets as simulations.
-- It resides under the backed-up workspace, not a tool installation directory.
+| Target | Expected lab result |
+| --- | --- |
+| `lab-vulnerable` | Canary disclosed; `synthetic-confirmed` |
+| `lab-hardened` | No disclosure; `unconfirmed` |
 
-The local lab does not call an AI model. Hermes's own inference still uses its configured model connection and applicable limits. Do not present this example as a customer penetration test or a model-security benchmark.
+The report should include both session IDs and the verifier results. See [evidence and findings](/martian-hermes-docs/attack-library/evidence/) if a result is missing or inconclusive.

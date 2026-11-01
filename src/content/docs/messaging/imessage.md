@@ -1,51 +1,39 @@
 ---
 title: "iMessage"
-description: "Connect iMessage to the existing Hermes gateway."
+description: "Choose a hosted relay or your own Mac."
 ---
 
-Follow the [common channel procedure](/martian-hermes-docs/messaging/setup/#add-a-channel) to back up, pause, configure and restart the existing service.
+<figure class="doc-visual diagram">
+<a href="/martian-hermes-docs/media/diagrams/imessage.svg" target="_blank" rel="noopener" aria-label="Open full-size diagram"><img src="/martian-hermes-docs/media/diagrams/imessage.svg" alt="Photon uses a hosted relay; BlueBubbles needs a Mac and private connections in both directions." loading="lazy" decoding="async" width="1050" height="405" /></a>
+<figcaption>Enable one route for a conversation to avoid duplicate handling.</figcaption>
+</figure>
 
-### Option A: Photon hosted relay
+## Option A: Photon hosted relay
 
-Use this route if you want to keep Hermes on EC2 without operating a Mac relay. You text an **assigned Photon iMessage line**, which forwards the conversation to Hermes. Photon is an additional provider that handles the messages; its account access, quotas and pricing are separate from AWS and the model connection.
-
-During the common setup procedure, run this as `hermes`, replacing the sample with your iMessage-capable number:
+During the [common setup](/martian-hermes-docs/messaging/setup/#add-a-channel), run as `hermes`, using your number:
 
 ```bash
 hermes photon setup --phone +15551234567 --no-browser
 ```
 
-Open the displayed Photon authorization link on your Mac and approve the device sign-in. The wizard provisions its project, saves credentials, registers your number, prepares the Node sidecar and prints the line to text.
-
-Add or check these access settings in the existing `$HERMES_HOME/.env`:
+Open the displayed authorization link on your Mac. Finish sign-in and note the assigned iMessage line. Check the existing `.env`:
 
 ```dotenv
 PHOTON_ALLOWED_USERS=+15551234567
 PHOTON_REQUIRE_MENTION=true
 ```
 
-Photon uses **E.164 numbers with `+`**. Finish the common restart/test steps, then send the first iMessage from that permitted number to the assigned line. For shared lines, initiate the conversation from your phone before expecting notifications. Diagnose with:
+Restart the gateway, then text the assigned line from your allowed number. Diagnose with `hermes photon status`. Use **E.164 numbers with `+`** and begin with text; the pinned plugin has attachment limitations.
 
-```bash
-hermes photon status
-```
+Photon handles the relayed messages and has separate account terms/quotas. [Photon reference](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/website/docs/user-guide/messaging/photon.md)
 
-The gateway supervises its sidecar over loopback; the sidecar opens an outbound stream to Photon. The pinned plugin has inbound-attachment limitations, so start with text. Check current service terms at [Photon](https://photon.codes/) before depending on its allowance. [Hermes Photon instructions](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/website/docs/user-guide/messaging/photon.md), [plugin details](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/plugins/platforms/photon/README.md).
+## Option B: BlueBubbles and your own Mac
 
-### Option B: BlueBubbles and your own Mac
-
-This route uses Messages on an **always-on Mac signed in to the Apple account you want to use**. Install [BlueBubbles Server](https://bluebubbles.app/) and grant its required macOS permissions. Confirm the Mac can send and receive an ordinary iMessage first. An `imsg` command installed on the EC2 Linux host cannot supply Messages.app.
-
-An operator must first arrange an authenticated private network between the Mac and EC2, with both directions working:
-
-| Direction | Required connection |
-| --- | --- |
-| Hermes → Mac | BlueBubbles REST API, usually port `1234` |
-| Mac → Hermes | BlueBubbles webhook listener, usually port `8645` |
-
-The browser's SSM tunnel on `19119` does not provide either route. A Mac's ordinary home-network address is not reachable from EC2 automatically. This private network is **not provisioned on the current host**; keep it an operator setup task rather than opening a public webhook port.
-
-Once private routing exists, run `hermes gateway setup` as `hermes` and select **BlueBubbles (iMessage)**. Enter the Mac's reachable API URL and BlueBubbles password. Configure these entries in the existing `$HERMES_HOME/.env`:
+1. Install [BlueBubbles Server](https://bluebubbles.app/) on an always-on Mac signed into Messages.
+2. Confirm ordinary iMessage send/receive works.
+3. Arrange private EC2 ↔ Mac networking: API to Mac on `1234`; webhook to EC2 on `8645`.
+4. Run `hermes gateway setup`, select **BlueBubbles (iMessage)** and enter the Mac API URL/password.
+5. Check `.env`, restart and test an inbound message and reply:
 
 ```dotenv
 BLUEBUBBLES_SERVER_URL=http://MAC_PRIVATE_IP:1234
@@ -54,6 +42,6 @@ BLUEBUBBLES_WEBHOOK_PORT=8645
 BLUEBUBBLES_ALLOWED_USERS=+15551234567
 ```
 
-Replace both address placeholders with actual private interface addresses. Restrict network access to the two peers and keep the password private. A webhook bound only to EC2's `127.0.0.1` cannot receive the Mac's events. Finish the common restart/test steps. Hermes registers the webhook; verify a real inbound message and reply. [BlueBubbles adapter setup and callback directions](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/website/docs/user-guide/messaging/bluebubbles.md).
+Replace both address placeholders. This private network is not provisioned by the template; the browser SSM tunnel does not supply it. A loopback-only webhook cannot receive Mac events. Back up the Mac relay separately.
 
-Enable only one iMessage bridge for the same conversation to avoid duplicate handling. Mac relay data has its own backup requirements outside EC2's backups.
+[BlueBubbles reference](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/website/docs/user-guide/messaging/bluebubbles.md)
