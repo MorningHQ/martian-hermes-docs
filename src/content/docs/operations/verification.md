@@ -7,7 +7,7 @@ The recorded **30 October 2026** run passed **18/18 checks** against local fixtu
 
 <figure class="doc-visual screenshot">
 <a href="/martian-hermes-docs/media/screenshots/tool-checks.jpg" target="_blank" rel="noopener" aria-label="Open screenshot: Recorded test summary lists eighteen passing checks across the installed tools"><img src="/martian-hermes-docs/media/screenshots/tool-checks.jpg" alt="Recorded test summary lists eighteen passing checks across the installed tools" width="1265" height="1472" loading="lazy" decoding="async" /></a>
-<figcaption>Recorded EC2 output displayed in a viewer afterward, 30 October 2026. Click to enlarge.</figcaption>
+<figcaption>Recorded EC2 output displayed in a viewer afterward, 30 October 2026. <a class="visual-open" href="/martian-hermes-docs/media/screenshots/tool-checks.jpg" target="_blank" rel="noopener" aria-label="Open full-size screenshot (opens in a new tab)">Open full size <span aria-hidden="true">↗</span></a></figcaption>
 </figure>
 
 ## Covered

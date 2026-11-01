@@ -21,7 +21,7 @@ Hermes continues across turns. The default budget is **20 continuation turns**, 
 | `/stop` | Interrupt current work |
 | `/new` | Start a fresh conversation |
 
-After a restart, reopen the session and check `/goal status` before resuming. [All commands →](/martian-hermes-docs/reference/commands/)
+After a restart, reopen the session and check `/goal status` before resuming. [All commands&nbsp;→](/martian-hermes-docs/reference/commands/)
 
 ## Subagents and a swarm
 

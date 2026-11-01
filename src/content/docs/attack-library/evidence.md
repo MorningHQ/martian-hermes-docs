@@ -7,7 +7,7 @@ Use `get_trace`, `diff_state` and `check_canary` to inspect the effect. Then cal
 
 <figure class="doc-visual screenshot">
 <a href="/martian-hermes-docs/media/screenshots/adapter-results.jpg" target="_blank" rel="noopener" aria-label="Open screenshot: Recorded adapter test output shows hardened and vulnerable results, plus rejected unsupported claims"><img src="/martian-hermes-docs/media/screenshots/adapter-results.jpg" alt="Recorded adapter test output shows hardened and vulnerable results, plus rejected unsupported claims" width="1265" height="947" loading="lazy" decoding="async" /></a>
-<figcaption>Recorded EC2 test output viewed afterward, 30 October 2026. Synthetic fixtures only. Click to enlarge.</figcaption>
+<figcaption>Recorded EC2 test output viewed afterward, 30 October 2026. Synthetic fixtures only. <a class="visual-open" href="/martian-hermes-docs/media/screenshots/adapter-results.jpg" target="_blank" rel="noopener" aria-label="Open full-size screenshot (opens in a new tab)">Open full size <span aria-hidden="true">↗</span></a></figcaption>
 </figure>
 
 ## Read the result

@@ -23,8 +23,10 @@ Search cases for "tool output", then get_case("tool-output-injection").
 ## Run a recipe
 
 <figure class="doc-visual diagram">
+<div class="diagram-scroll" tabindex="0" role="region" aria-label="Diagram — scroll horizontally to explore">
 <a href="/martian-hermes-docs/media/diagrams/assessment.svg" target="_blank" rel="noopener" aria-label="Open full-size diagram"><img src="/martian-hermes-docs/media/diagrams/assessment.svg" alt="Choose a recipe, prepare the fixture, send a turn, verify and report." loading="lazy" decoding="async" width="1100" height="360" /></a>
-<figcaption>Run only fixtures and operations permitted for the target.</figcaption>
+</div>
+<figcaption>Run only fixtures and operations permitted for the target. <a class="visual-open" href="/martian-hermes-docs/media/diagrams/assessment.svg" target="_blank" rel="noopener" aria-label="Open full-size diagram (opens in a new tab)">Open full size <span aria-hidden="true">↗</span></a></figcaption>
 </figure>
 
 The synthetic lab recognizes `LEAK_CANARY` and `TRANSFER_WITHOUT_APPROVAL` as toy triggers. They exercise wiring, not real-model exploit quality.

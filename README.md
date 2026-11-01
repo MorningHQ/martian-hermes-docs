@@ -15,6 +15,8 @@ Branding follows `martian-security-website/DESIGN.md`: paper surfaces, warm ink,
 
 The compact layout uses a 56px header, 34px page titles, 14.5px body text and a 704px reading column. Keep navigation and section spacing restrained; mobile search and menu controls retain 44px targets.
 
+Code blocks use [Expressive Code's native word wrapping](https://expressive-code.com/key-features/word-wrap/), retaining the original text when copied. Keep long shell commands on readable continuation lines. Diagrams scroll inside a keyboard-focusable region; captions and full-size links stay outside that region. Preserve Starlight's heading padding, which reserves space for section-link icons.
+
 Keep pages task-focused: a short introduction, steps/commands, then a result. Link to reference material instead of repeating it. Use native `<details>` for long lists. Screenshots under `public/media/screenshots/` are unmodified captures from the 30 October 2026 qualification; captions distinguish actual Hermes screens from recorded-output viewers. Static SVG diagrams under `public/media/diagrams/` require no client rendering library.
 
 This repository contains sanitized documentation only. The private `MorningHQ/martian-hermes-agent` repository owns AWS CDK, runtime code and runbooks. Changes to its runtime do not automatically update these docs; review documentation with each qualified release.

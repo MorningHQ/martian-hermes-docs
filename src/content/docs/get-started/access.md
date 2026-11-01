@@ -10,15 +10,21 @@ You need AWS access, the [AWS CLI](https://docs.aws.amazon.com/cli/latest/usergu
 1. On your Mac, replace `INSTANCE_ID` and run:
 
 ```bash
-aws ssm start-session   --region us-east-1   --target INSTANCE_ID   --document-name AWS-StartPortForwardingSession   --parameters '{"portNumber":["9119"],"localPortNumber":["19119"]}'
+aws ssm start-session \
+  --region us-east-1 \
+  --target INSTANCE_ID \
+  --document-name AWS-StartPortForwardingSession \
+  --parameters '{"portNumber":["9119"],"localPortNumber":["19119"]}'
 ```
 
 2. Leave that terminal open.
 3. Open **[localhost:19119/chat?profile=default](http://127.0.0.1:19119/chat?profile=default)** and choose **New chat**.
 
 <figure class="doc-visual diagram">
+<div class="diagram-scroll" tabindex="0" role="region" aria-label="Diagram — scroll horizontally to explore">
 <a href="/martian-hermes-docs/media/diagrams/connect.svg" target="_blank" rel="noopener" aria-label="Open full-size diagram"><img src="/martian-hermes-docs/media/diagrams/connect.svg" alt="Browser port 19119 connects through SSM to the EC2 dashboard on port 9119." loading="lazy" decoding="async" width="1000" height="245" /></a>
-<figcaption>The tunnel provides private access; the dashboard stays on EC2 loopback.</figcaption>
+</div>
+<figcaption>The tunnel provides private access; the dashboard stays on EC2 loopback. <a class="visual-open" href="/martian-hermes-docs/media/diagrams/connect.svg" target="_blank" rel="noopener" aria-label="Open full-size diagram (opens in a new tab)">Open full size <span aria-hidden="true">↗</span></a></figcaption>
 </figure>
 
 <details>
@@ -26,7 +32,10 @@ aws ssm start-session   --region us-east-1   --target INSTANCE_ID   --document-n
 
 ```bash
 aws login
-aws cloudformation describe-stacks   --stack-name MartianHermesAgent --region us-east-1   --query "Stacks[0].Outputs[?OutputKey=='InstanceId'].OutputValue | [0]"   --output text
+aws cloudformation describe-stacks \
+  --stack-name MartianHermesAgent --region us-east-1 \
+  --query "Stacks[0].Outputs[?OutputKey=='InstanceId'].OutputValue | [0]" \
+  --output text
 ```
 
 If port `19119` is busy, change `localPortNumber` and use that port in your browser.
@@ -50,4 +59,4 @@ hermes chat
 
 `/quit` returns to the shell. Your files live under `/srv/hermes/workspace` on EC2.
 
-**Next: [Run your first test →](/martian-hermes-docs/get-started/first-assessment/)**
+**Next: [Run your first test&nbsp;→](/martian-hermes-docs/get-started/first-assessment/)**

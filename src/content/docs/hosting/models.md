@@ -12,7 +12,7 @@ Change the provider with `hermes model` or **Models → Change**. Start a new ch
 
 <figure class="doc-visual screenshot">
 <a href="/martian-hermes-docs/media/screenshots/hermes-models.jpg" target="_blank" rel="noopener" aria-label="Open screenshot: Hermes Models page showing openai-codex and gpt-6.1-sol as the main model"><img src="/martian-hermes-docs/media/screenshots/hermes-models.jpg" alt="Hermes Models page showing openai-codex and gpt-6.1-sol as the main model" width="1422" height="800" loading="lazy" decoding="async" /></a>
-<figcaption>Actual saved settings, 30 October 2026. History includes earlier models. Click to enlarge.</figcaption>
+<figcaption>Actual saved settings, 30 October 2026. History includes earlier models. <a class="visual-open" href="/martian-hermes-docs/media/screenshots/hermes-models.jpg" target="_blank" rel="noopener" aria-label="Open full-size screenshot (opens in a new tab)">Open full size <span aria-hidden="true">↗</span></a></figcaption>
 </figure>
 
 ## Bedrock IAM

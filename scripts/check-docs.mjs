@@ -23,7 +23,8 @@ const prohibited = [
 ];
 for (const file of source) {
   const text = readFileSync(file, 'utf8');
-  if (!/^---\ntitle: .+\ndescription: .+\n---\n/.test(text)) failures.push(`${file}: missing metadata`);
+  const metadata = text.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/)?.[1] ?? '';
+  if (!/^title: .+$/m.test(metadata) || !/^description: .+$/m.test(metadata)) failures.push(`${file}: missing metadata`);
   if (prohibited.some(pattern => pattern.test(text))) failures.push(`${file}: possible private identifier or credential`);
 }
 if (!existsSync(path.join(root, 'index.html'))) throw new Error('Build the documentation before checking generated links.');

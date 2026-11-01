@@ -19,6 +19,7 @@ export default defineConfig({
     customCss: ['./src/styles/custom.css'],
     expressiveCode: {
       themes: ['github-dark', 'github-light'],
+      defaultProps: { wrap: true, frame: 'none' },
       styleOverrides: {
         borderRadius: '8px',
         borderColor: 'var(--sl-color-hairline)',

@@ -4,8 +4,10 @@ description: "Choose a hosted relay or your own Mac."
 ---
 
 <figure class="doc-visual diagram">
+<div class="diagram-scroll" tabindex="0" role="region" aria-label="Diagram — scroll horizontally to explore">
 <a href="/martian-hermes-docs/media/diagrams/imessage.svg" target="_blank" rel="noopener" aria-label="Open full-size diagram"><img src="/martian-hermes-docs/media/diagrams/imessage.svg" alt="Photon uses a hosted relay; BlueBubbles needs a Mac and private connections in both directions." loading="lazy" decoding="async" width="1050" height="405" /></a>
-<figcaption>Enable one route for a conversation to avoid duplicate handling.</figcaption>
+</div>
+<figcaption>Enable one route for a conversation to avoid duplicate handling. <a class="visual-open" href="/martian-hermes-docs/media/diagrams/imessage.svg" target="_blank" rel="noopener" aria-label="Open full-size diagram (opens in a new tab)">Open full size <span aria-hidden="true">↗</span></a></figcaption>
 </figure>
 
 ## Option A: Photon hosted relay

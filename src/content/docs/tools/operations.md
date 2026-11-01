@@ -22,7 +22,7 @@ Requires a previous release. This switches tools and managed settings; it does n
 
 ## Verify through the agent
 
-Run [the lab test](/martian-hermes-docs/get-started/first-assessment/) after activation. `tools-verify` checks receipts and hashes, not full runtime behavior. [Functional test record →](/martian-hermes-docs/operations/verification/)
+Run [the lab test](/martian-hermes-docs/get-started/first-assessment/) after activation. `tools-verify` checks receipts and hashes, not full runtime behavior. [Functional test record&nbsp;→](/martian-hermes-docs/operations/verification/)
 
 <details>
 <summary>Packaging and wrapper behavior</summary>

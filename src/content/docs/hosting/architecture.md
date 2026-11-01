@@ -4,8 +4,10 @@ description: "See the controller, tools, targets and storage in one diagram."
 ---
 
 <figure class="doc-visual diagram">
+<div class="diagram-scroll" tabindex="0" role="region" aria-label="Diagram — scroll horizontally to explore">
 <a href="/martian-hermes-docs/media/diagrams/architecture.svg" target="_blank" rel="noopener" aria-label="Open full-size diagram"><img src="/martian-hermes-docs/media/diagrams/architecture.svg" alt="One EC2 controller runs Hermes and local tools, calls a remote model and reaches the synthetic lab or approved HTTPS adapters." loading="lazy" decoding="async" width="1100" height="590" /></a>
-<figcaption>Native subagents and shell tools share the controller.</figcaption>
+</div>
+<figcaption>Native subagents and shell tools share the controller. <a class="visual-open" href="/martian-hermes-docs/media/diagrams/architecture.svg" target="_blank" rel="noopener" aria-label="Open full-size diagram (opens in a new tab)">Open full size <span aria-hidden="true">↗</span></a></figcaption>
 </figure>
 
 | Part | Setup |
