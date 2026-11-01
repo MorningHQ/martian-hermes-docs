@@ -67,7 +67,7 @@ h1 { margin: 0; letter-spacing: -.03em; line-height: 1.25; font-weight: 600; }
 .sl-markdown-content > p:first-child { font-size: 15px; line-height: 1.65; max-width: 68ch; }
 .sl-markdown-content :is(h2, h3, h4) { font-weight: 600; letter-spacing: -.02em; line-height: 1.4; }
 .sl-markdown-content .level-h2 { margin-top: 2rem; padding-top: 0; border-top: 0; }
-.sl-markdown-content .level-h2 h2 { margin: 0; padding: 0; border: 0; }
+.sl-markdown-content .level-h2 h2 { margin: 0; border: 0; }
 .sl-markdown-content h3 { margin-top: 1.5rem; }
 .sl-markdown-content strong { color: var(--sl-color-white); font-weight: 600; }
 .sl-markdown-content :not(pre) > code { font-family: var(--sl-font); font-size: .9em; border: 1px solid var(--sl-color-hairline); border-radius: 4px; padding: .1em .35em; color: var(--sl-color-gray-1); overflow-wrap: anywhere; }
