@@ -97,6 +97,7 @@ starlight-toc a[aria-current='true'] { color: var(--sl-color-white); font-weight
 .doc-visual figcaption { margin-top: 8px; color: var(--sl-color-gray-3); font-size: 11.5px; line-height: 1.6; }
 .doc-visual .visual-open { display: inline-flex; align-items: center; gap: .25rem; min-height: 24px; margin-inline-start: .5rem; font-weight: 500; white-space: nowrap; }
 .diagram-scroll { overflow-x: auto; overscroll-behavior-inline: contain; border-radius: 8px; }
+.diagram-scroll picture { display: block; width: 100%; max-width: var(--diagram-width); margin-inline: auto; }
 .doc-visual.diagram img { background: #fafafa; }
 .sl-markdown-content details { margin-block: 1.25rem; border: 1px solid var(--sl-color-hairline); border-radius: 6px; padding: 12px 14px; background: var(--sl-color-bg-nav); }
 .sl-markdown-content details summary { cursor: pointer; color: var(--sl-color-white); font-size: 13px; font-weight: 500; }
@@ -112,8 +113,9 @@ starlight-toc a[aria-current='true'] { color: var(--sl-color-white); font-weight
   .sl-markdown-content .level-h2 { margin-top: 1.75rem; }
   .sl-markdown-content table { display: block; font-size: 13px; }
   .sl-markdown-content :is(td, th) { overflow-wrap: anywhere; }
+  .sl-markdown-content :is(td, th):first-child { overflow-wrap: normal; }
   .sidebar-content a { padding-block: .5rem; font-size: 13px; }
-  .doc-visual.diagram img { min-width: 720px; }
+  .diagram-scroll picture { max-width: var(--diagram-mobile-width); }
 }
 @media (max-width: 360px) {
   .martian-brand-wordmark svg { width: 124px; }

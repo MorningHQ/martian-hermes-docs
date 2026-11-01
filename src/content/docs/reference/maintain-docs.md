@@ -10,7 +10,9 @@ npm ci
 npm run dev
 ```
 
-Edit pages in `src/content/docs/`. Navigation lives in `astro.config.mjs`; branding in `src/styles/custom.css`. The site uses [Astro Starlight](https://starlight.astro.build/).
+Edit Markdown or MDX pages in `src/content/docs/`. Navigation lives in `astro.config.mjs`; branding in `src/styles/custom.css`. The site uses [Astro Starlight](https://starlight.astro.build/).
+
+Edit diagrams in `src/diagrams/*.mmd`. The shared palette and build renderer generate desktop/mobile SVGs automatically. Each diagram offers its full-size image and Mermaid source.
 
 ## Before publishing
 

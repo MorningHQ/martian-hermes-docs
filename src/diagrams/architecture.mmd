@@ -1,0 +1,17 @@
+flowchart TB
+  operator("<b>You</b><br/>Browser · terminal · messaging"):::access
+  subgraph controller["EC2 controller · 2 vCPU / 4 GiB"]
+    direction TB
+    hermes("<b>Hermes</b><br/>Goals · sessions · subagents"):::agent
+    tools("<b>Local tools</b><br/>CLI · browser MCP · Martian MCP"):::tool
+    disk[("<b>Encrypted disk</b><br/>Home · workspace")]:::storage
+    lab("<b>Synthetic lab</b><br/>Local Unix socket"):::target
+    hermes --> tools
+    hermes -->|Persistent state| disk
+    tools --> lab
+  end
+  model("<b>Model provider</b><br/>ChatGPT OAuth or Bedrock IAM"):::external
+  targets("<b>Approved adapters</b><br/>Remote HTTPS targets"):::target
+  operator -->|Private access| hermes
+  hermes -->|Inference| model
+  tools -->|Scoped tests| targets

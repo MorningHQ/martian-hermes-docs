@@ -1,0 +1,10 @@
+flowchart TB
+  home[("<b>Hermes home + workspace</b><br/>Brief service pause")]:::access
+  disk[("<b>Retained data disk</b><br/>Includes lab state")]:::access
+  s3[("<b>S3 application archives</b><br/>Daily: 35 days<br/>Weekly / pre-upgrade: 90 days")]:::storage
+  snapshots[("<b>AWS Backup snapshots</b><br/>Daily: 7 days<br/>Weekly: 35 days")]:::storage
+  restore("<b>Rehearse recovery</b><br/>Keep live state untouched"):::target
+  home -->|Daily · 03:15 UTC| s3
+  disk -->|Separate schedule| snapshots
+  s3 -->|Temporary home| restore
+  snapshots -->|Temporary EBS volume| restore

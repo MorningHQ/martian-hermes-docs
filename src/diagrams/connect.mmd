@@ -1,0 +1,6 @@
+flowchart LR
+  browser("<b>Your browser</b><br/>localhost:19119"):::access
+  tunnel("<b>AWS SSM tunnel</b><br/>Operator IAM session"):::tool
+  dashboard("<b>Hermes dashboard</b><br/>EC2 loopback :9119"):::agent
+  browser -->|Local port| tunnel
+  tunnel -->|Private forwarding| dashboard

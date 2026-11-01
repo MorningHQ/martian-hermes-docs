@@ -1,0 +1,10 @@
+flowchart TB
+  operator("<b>You</b><br/>Browser · terminal · messaging"):::access
+  subgraph controller["EC2 · 2 vCPU / 4 GiB"]
+    hermes("<b>Hermes + local tools</b><br/>Shared subagents · synthetic lab<br/>Encrypted home + workspace"):::agent
+  end
+  model("<b>Model provider</b><br/>OAuth / Bedrock IAM"):::external
+  targets("<b>Approved adapters</b><br/>Remote HTTPS targets"):::target
+  operator -->|Private access| hermes
+  hermes -->|Inference| model
+  hermes -->|Scoped tests| targets

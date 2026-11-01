@@ -1,0 +1,21 @@
+flowchart TB
+  subgraph photon["Option A · Photon"]
+    direction TB
+    phoneA("<b>Your iPhone</b><br/>Assigned Photon line"):::access
+    relay("<b>Photon relay</b><br/>Hosted by Photon"):::external
+    gatewayA("<b>Hermes on EC2</b><br/>Outbound stream"):::agent
+    phoneA <-->|Messages| relay
+    gatewayA -->|Connects outbound| relay
+  end
+  subgraph bluebubbles["Option B · BlueBubbles"]
+    direction TB
+    phoneB("<b>Your iPhone</b><br/>Your Apple account"):::access
+    mac("<b>Always-on Mac</b><br/>BlueBubbles Server"):::tool
+    gatewayB("<b>Hermes on EC2</b><br/>Private network"):::agent
+    phoneB <-->|iMessage| mac
+    gatewayB -->|API :1234| mac
+    mac -->|Webhook :8645| gatewayB
+  end
+  %% Layout only: keep option A above option B without a visible connection.
+  relay --- phoneB
+  linkStyle 5 stroke:transparent,stroke-width:0px

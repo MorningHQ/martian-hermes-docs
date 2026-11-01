@@ -1,0 +1,15 @@
+flowchart TB
+  choose("<b>01 · Choose</b><br/>Recipe + target"):::access
+  prepare("<b>02 · Prepare</b><br/>Session + fixture"):::tool
+  send("<b>03 · Send</b><br/>Target turn"):::agent
+  verify{"<b>04 · Verify</b><br/>Observed lab effect?"}:::external
+  confirmed("<b>Synthetic-confirmed</b><br/>Supported by evidence"):::target
+  unconfirmed("<b>Unconfirmed</b><br/>No supporting effect"):::access
+  save[("<b>05 · Save</b><br/>Evidence + report")]:::storage
+  choose --> prepare
+  prepare --> send
+  send --> verify
+  verify -->|Yes| confirmed
+  verify -->|No| unconfirmed
+  confirmed --> save
+  unconfirmed --> save

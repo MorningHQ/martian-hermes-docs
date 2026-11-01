@@ -11,7 +11,8 @@ function files(directory, extension) {
     return entry.isDirectory() ? files(name, extension) : name.endsWith(extension) ? [name] : [];
   });
 }
-const source = files('src/content/docs', '.md');
+const source = [...files('src/content/docs', '.md'), ...files('src/content/docs', '.mdx')];
+const diagramSources = files('src/diagrams', '.mmd');
 const prohibited = [
   /\b(?:i|vol|snap)-[0-9a-f]{8,17}\b/,
   /\bAKIA[A-Z0-9]{16}\b/,
@@ -21,10 +22,10 @@ const prohibited = [
   /arn:aws:[^\s]+:\d{12}:/,
   /eyJ[A-Za-z0-9_-]{15,}\.[A-Za-z0-9_-]{15,}\.[A-Za-z0-9_-]{10,}/,
 ];
-for (const file of source) {
+for (const file of [...source, ...diagramSources]) {
   const text = readFileSync(file, 'utf8');
   const metadata = text.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/)?.[1] ?? '';
-  if (!/^title: .+$/m.test(metadata) || !/^description: .+$/m.test(metadata)) failures.push(`${file}: missing metadata`);
+  if (!file.endsWith('.mmd') && (!/^title: .+$/m.test(metadata) || !/^description: .+$/m.test(metadata))) failures.push(`${file}: missing metadata`);
   if (prohibited.some(pattern => pattern.test(text))) failures.push(`${file}: possible private identifier or credential`);
 }
 if (!existsSync(path.join(root, 'index.html'))) throw new Error('Build the documentation before checking generated links.');
@@ -35,9 +36,9 @@ let links = 0;
 for (const file of htmlFiles) {
   const relative = path.relative(root, file).split(path.sep).join('/');
   const url = new URL(base + relative, origin);
-  for (const tag of readFileSync(file, 'utf8').matchAll(/<(?:a|link|script|img)\b[^>]*>/g)) {
+  for (const tag of readFileSync(file, 'utf8').matchAll(/<(?:a|link|script|img|source)\b[^>]*>/g)) {
     if (/\brel="canonical"/.test(tag[0])) continue;
-    const match = tag[0].match(/\b(?:href|src)="([^"]*)"/);
+    const match = tag[0].match(/\b(?:href|src|srcset)="([^"]*)"/);
     if (!match) continue;
     const href = decode(match[1]);
     if (!href || /^(?:data|mailto|tel|javascript):/.test(href)) continue;
