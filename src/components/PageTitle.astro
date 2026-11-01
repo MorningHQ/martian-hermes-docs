@@ -1,0 +1,12 @@
+---
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+const section = Astro.locals.starlightRoute.entry.id.split('/')[0];
+const labels: Record<string, string> = {
+  'get-started': 'Get started', hosting: 'Hosting', tools: 'Tools and MCP',
+  mcp: 'Tools and MCP', 'attack-library': 'Attack library',
+  messaging: 'Connect apps', operations: 'Operations', reference: 'Reference',
+};
+---
+
+<p class="doc-section-label">{labels[section] ?? 'Operator documentation'}</p>
+<Default {...Astro.props}><slot /></Default>

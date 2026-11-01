@@ -1,0 +1,22 @@
+{
+  "name": "martian-hermes-docs",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "node scripts/check-docs.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "description": "Hosting and operator documentation for Martian Hermes",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@astrojs/starlight": "0.42.8",
+    "@fontsource-variable/inter": "5.3.0",
+    "astro": "7.4.4",
+    "sharp": "0.35.5"
+  }
+}
