@@ -3,6 +3,14 @@ title: "Choose a model"
 description: "Set the provider, model and reasoning level."
 ---
 
+## Martian Security inference stack
+
+**Qwen 3.8**, **GLM 5.3 Flash** and **DeepSeek V4.1 Flash 1017** abliterated models are hosted in the **Martian Security inference stack** and served through our **OpenAI-compatible APIs**.
+
+[Contact us](mailto:founders@martiansecurity.ai) for access.
+
+## Existing configurations
+
 | Setup | Provider |
 | --- | --- |
 | Fresh template | DeepSeek V3.2 through Bedrock, using the EC2 role |
